@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>ADMIN</title>
+    </head>
+    <body>
+
+        <h1>ADMIN</h1>
+        <h2>All signups</h2>
+        <table>
+            <tr><td>REG ID</td><td>NAME</td><td>ADDRESS</td><td></td></tr>
+            <tr th:each="item : ${signups}">
+                <td><span th:text="${item.id}">signup</span></td>
+                <td><span th:text="${item.name}">signup</span></td>
+                <td><span th:text="${item.address}">signup</span></td>
+                <td><a href="show.html" th:href="@{/show(regId=${item.id})}">Modify</a></td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Thank you!</title>
+    </head>
+    <body>
+
+        <h2>Are you sure information correct?</h2>
+        
+        <span th:text="${session.state}">state</span>
+        <span th:text="${session.name}">name</span>
+        <span th:text="${session.address}">address</span>
+        
+        <form action="#" th:action="@{/confirm}" method="POST">
+            <p><input type="submit" value="confirm" /></p>
+        </form>
+        
+        <form action="#" th:action="@{/cancel}" method="POST">
+            <p><input type="submit" value="cancel"/></p>
+        </form>
+    </body>
+</html>

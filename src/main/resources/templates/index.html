@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>EVENT</title>
+    </head>
+    <body>
+
+        <h1>EVENT</h1>
+
+        <a href="details.html" th:href="@{/form}">Register</a>
+        
+        <a href="modify.html" th:href="@{/modify}">Modify</a>
+        
+        <hr/>
+        
+        <p>Currently we have <span th:text="${count}">count</span> signups!</p>
+        
+        <hr/>
+        <i>
+            <p>debug: currentsession data</p>
+        
+            <span th:text="${session.id}">id</span>
+            <span th:text="${session.state}">state</span>
+            <span th:text="${session.name}">name</span>
+            <span th:text="${session.address}">address</span>
+        </i>  
+    </body>
+</html>
