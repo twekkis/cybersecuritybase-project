@@ -6,7 +6,7 @@ online registration for free poetry lesson.
 Application is simple and easy to use having only minimal functionalities without
 need for any credentials from end user.
 
-*APPLICATION CONTENT:*
+**APPLICATION CONTENT:**
 
   * main page (/)
     * user can register or modify existing registration (only removing supported)
@@ -22,14 +22,14 @@ need for any credentials from end user.
     * Requires authentication (admin/president)
     * shows all users and gives possibility to cancel registrations
 
-*SECURITY FLAWS* [see more](https://www.owasp.org/index.php/Top_10_2013-Top_10)							  
+**SECURITY FLAWS** [see more](https://www.owasp.org/index.php/Top_10_2013-Top_10)							  
 
-*A2-Broken Session Management*
+**A2-Broken Session Management**
 
 1. Start backend web application
 2. Go to URL: / -> select "Register" -> fill form: John Smith/Texas -> confirm
 3. Check given registration id
-4. Go to URL: /modify -> fill form: <registration id>/John Smith/Texas
+4. Go to URL: /modify -> fill form: registration id/John Smith/Texas
 5. Data successfully shown
 6. Check page source and you can see that cancellation is done based on URL 
    /cancel. It clearly requires session to cancel the registration
@@ -43,10 +43,10 @@ HttpSession shall be invalidated properly in places where session data is not ne
 anymore. In this application it means after action confirmation, cancelling or when 
 returning back to main page.
 
-*A3-XSS*
+**A3-XSS**
 
 1. Start backend web application
-2. Go to URL: / -> select "Register" -> fill form with "<script>alert("XSS")</script>" -> confirm
+2. Go to URL: / -> select "Register" -> fill form with "lt;scriptgt;alert("XSS")lt;/scriptgt;" -> confirm
 3. Script is executed in confirmation pages etc. Can be assumed that attacker can tolerate that.
 4. Exploit comes in /admin pages which shows all information or selects some user for modify. 
    Possible malicious script gets executed for admin.
@@ -55,7 +55,7 @@ HOW TO FIX:
 All text fields having external input data shall be escaped. In Thymeleaf it can be done
 with th:utext tag.
 
-*A4-Insecure Direct Object References*
+**A4-Insecure Direct Object References**
 
 1. Start backend web application
 2. Go to URL: / -> select "Register" -> fill form: John Smith/Texas -> confirm
@@ -68,7 +68,7 @@ HOW TO FIX:
 Security configuration shall apply for whole admin application. 
 http.authorizeRequests().antMatchers("/admin/**").authenticated()
 
-*A6-Sensitive Data Exposure*
+**A6-Sensitive Data Exposure**
 
 case 1)
 1. Start backend web application
@@ -88,7 +88,7 @@ HOW TO FIX:
 
 Use HTTPS with authorized certificates
 
-*A8-Cross-Site Request Forgery (CSRF)*
+**A8-Cross-Site Request Forgery (CSRF)**
 
 1. Start backend web application
 2. Go to URL: / -> select "Register" -> fill form: John Smith/Texas -> confirm
