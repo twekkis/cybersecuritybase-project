@@ -7,9 +7,9 @@
 
         <h2>Are you sure information correct?</h2>
         
-        <span th:text="${session.state}">state</span>
-        <span th:text="${session.name}">name</span>
-        <span th:text="${session.address}">address</span>
+        <span th:utext="${session.state}">state</span>
+        <span th:utext="${session.name}">name</span>
+        <span th:utext="${session.address}">address</span>
         
         <form action="#" th:action="@{/confirm}" method="POST">
             <p><input type="submit" value="confirm" /></p>

@@ -30,7 +30,6 @@ public class SignupController {
     
     @RequestMapping("/")
     public String mainPage(Model model) {
-        session.invalidate();
         model.addAttribute("count", signupRepository.count());
         return "index";
     }
@@ -69,14 +68,18 @@ public class SignupController {
         session.setAttribute("id", entry.getId());
         session.setAttribute("state", "ADD");
         
-        model.addAttribute("name", name);
-        model.addAttribute("address", address);
+        
         return "confirm";
     }
     
-    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
+    @RequestMapping(value = "/cancel"/*, method = RequestMethod.GET*/)
     public String cancel() {
-        session.setAttribute("state", "DEL");
+        
+        if((String)session.getAttribute("state")=="DEL")
+            session.setAttribute("state", "ADD");
+        else
+            session.setAttribute("state", "DEL");
+    
         return "confirm";
     }
     
@@ -88,33 +91,34 @@ public class SignupController {
             Signup entry = signupRepository.findOne((Long)session.getAttribute("id"));
             signupRepository.delete(entry);
         }
-        
-        List<Signup> all = signupRepository.findAll();    
-        List<String> names = new ArrayList<String>();
-        
-        for(Signup signup: all) {
-            names.add(signup.getName());
-        }
-        
-        model.addAttribute("signups", names);
-        model.addAttribute("name", (String)session.getAttribute("name"));
-        model.addAttribute("address", (String)session.getAttribute("address"));
-        model.addAttribute("signup_number", session.getAttribute("id"));
-        
         return "done";
     }
     
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String show(Model model, @RequestParam(required = true)Long regId) {
-        Signup entry = signupRepository.findOne(regId);
         
-        model.addAttribute("name", entry.getName());
-        model.addAttribute("address", entry.getAddress());
+        Signup entry = signupRepository.findOne(regId);
         
         session.setAttribute("state", "SHOW");
         session.setAttribute("name", entry.getName());
         session.setAttribute("address", entry.getAddress());
         session.setAttribute("id", entry.getId());
+        
+        return "done";
+    }
+    
+    
+    
+    @RequestMapping(value = "/admin/show", method = RequestMethod.GET)
+    public String adminShow(Model model, @RequestParam(required = true)Long regId) {
+        
+        Signup entry = signupRepository.findOne(regId);
+        
+        session.setAttribute("state", "SHOW");
+        session.setAttribute("name", entry.getName());  
+        session.setAttribute("address", entry.getAddress());
+        session.setAttribute("id", entry.getId());
+        
         return "done";
     }
     

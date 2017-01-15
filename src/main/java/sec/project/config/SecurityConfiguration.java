@@ -20,17 +20,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // no real security at the moment
-        //http.authorizeRequests()
-          //      .anyRequest().permitAll();
-        
-        // you can access the h2-console through /h2-console
-        
+       
+        //http.csrf().disable();
         http
             .authorizeRequests()
-                .antMatchers("/h2-console/*").permitAll()
-                .antMatchers("/admin").authenticated()
-                //.anyRequest().permitAll()
+                .antMatchers("/admin/**").authenticated()
                 .and()
             .formLogin()
                 .permitAll()
