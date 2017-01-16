@@ -1,0 +1,62 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 15, 2017, 9:46:30 PM
+    Author     : torppis
+*/
+
+body{
+    background: url('/img/background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+    font-family: 'Droid Sans', sans-serif;
+    color: black;
+}
+
+input[type=text] {
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    padding: 16px 32px;
+    margin: 4px 2px;
+    box-sizing: border-box;
+    width: 65%;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100px;
+}
+
+.master {
+    margin: 50px;
+}
+
+.logo {
+    padding: 0px;
+    margin-bottom: 0px;
+    opacity: 0.7;
+    filter: Alpha(opacity=70); /* IE8 and earlier */
+    width: 40%;
+    color: black;
+    font-size: 50px;
+}
+.main {
+    padding: 50px;
+    margin-bottom: 50px;
+    background-color: white;
+    opacity: 0.7;
+    filter: Alpha(opacity=70); /* IE8 and earlier */
+    border-radius: 4px;
+}

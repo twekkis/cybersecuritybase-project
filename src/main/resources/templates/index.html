@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
     <head>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
         <title>EVENT</title>
     </head>
     <body>
-
-        <h1>EVENT</h1>
-
-        <a href="details.html" th:href="@{/form}">Register</a>
-        
-        <a href="modify.html" th:href="@{/modify}">Modify</a>
-        
-        <hr/>
-        
-        <p>Currently we have <span th:utext="${count}">count</span> signups!</p>
-        
-        <a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Designed by Freepik</a>
+    <div th:class="master">
+        <p th:class="logo">
+            #poetry.com
+        </p>
+        <div th:class="main">
+            <h1>Join free poetry event and come to enjoy</h1>
+            <form action="#" th:action="@{/form}" method="GET">
+                <input type="submit" value="Join" />
+            </form>
+            <form action="#" th:action="@{/modify}" method="GET">
+                <input type="submit" value="Modify" />
+            </form>
+            <p>Currently we have <span th:utext="${count}">count</span> signups!</p>
+        </div>
+        <p><a href="admin.html" th:href="@{/admin}">Admin Login</a></p>
+        <a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Image by Freepik</a>
+    </div>
     </body>
 </html>

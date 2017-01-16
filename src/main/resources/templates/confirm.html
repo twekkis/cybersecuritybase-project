@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
         <title>Thank you!</title>
     </head>
     <body>
-
-        <h2>Are you sure information correct?</h2>
+    <div th:class="master">
+        <p th:class="logo">
+            #poetry.com
+        </p>
+        <div th:class="main">
+            <div th:if="${session.state} == 'ADD'">         
+                <h1>Are you sure you want to register?</h1>
+            </div>
+            <div th:if="${session.state} == 'DEL'">           
+                <h1>Are you sure you want to delete registration?</h1>
+            </div>
+            <p>Name: <span th:utext="${session.name}">name</span></p>
+            <p>Address: <span th:utext="${session.address}">address</span></p>
         
-        <span th:utext="${session.state}">state</span>
-        <span th:utext="${session.name}">name</span>
-        <span th:utext="${session.address}">address</span>
+            <form action="#" th:action="@{/confirm}" method="POST">
+                <p><input type="submit" value="confirm" /></p>
+            </form>
         
-        <form action="#" th:action="@{/confirm}" method="POST">
-            <p><input type="submit" value="confirm" /></p>
-        </form>
-        
-        <form action="#" th:action="@{/cancel}" method="POST">
-            <p><input type="submit" value="cancel"/></p>
-        </form>
+            <form action="#" th:action="@{/cancel}" method="POST">
+                <p><input type="submit" value="cancel"/></p>
+            </form>        
+        </div>
+        <a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Image by Freepik</a>
+    </div>
     </body>
 </html>

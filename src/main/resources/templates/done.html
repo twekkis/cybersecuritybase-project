@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
         <title>Thank you!</title>
     </head>
     <body>
+    <div th:class="master">
+        <p th:class="logo">
+            #poetry.com
+        </p>
+        <div th:class="main">
 
-        <h1>Thank you!</h1>
 
-        <span th:utext="${session.state}">state</span>
-        <span th:utext="${session.id}">id</span>
-        <span th:utext="${session.name}">name</span>
-        <span th:utext="${session.address}">address</span>
-        
-        <div th:if="${session.state} == 'SHOW'"> 
-            <a href="cancel.html" th:href="@{/cancel}">Cancel</a>
+            <div th:if="${session.state} == 'ADD'">               
+                <h1>Thank you!</h1>Registration confirmed
+            </div>
+            <div th:if="${session.state} == 'DEL'">           
+                <h1>See you next time!</h1>Registration cancelled
+            </div>
+            <div th:if="${session.state} == 'SHOW'">           
+                <h1>Current registration</h1>
+                <p>Id: <span th:utext="${session.id}">id</span></p>
+                <p>Name: <span th:utext="${session.name}">name</span></p>
+                <p>Address: <span th:utext="${session.address}">address</span></p>
+                <form action="#" th:action="@{/cancel}" method="GET">
+                    <input type="submit" value="Delete" />
+                </form>
+                <form action="#" th:action="@{/}" method="GET">
+                    <input type="submit" value="Cancel" />
+                </form>
+            </div>
+            <br/><br/><a href="index.html" th:href="@{/}">Back to main page</a>       
         </div>
-        
-        <br/><br/><a href="index.html" th:href="@{/}">Back to main page</a>
+        <a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Image by Freepik</a>
+    </div>
     </body>
 </html>

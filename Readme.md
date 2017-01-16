@@ -105,7 +105,10 @@ HOW TO FIX:
   * Set unpredictable token to each HTTP request. In Spring this can be done by not disabling csrf in security configs.
 
 
+**Plus**
 
+  * All input validations are missing
+  * Error output is inconsistent and might give some too details information from the backend application
 
 
 
