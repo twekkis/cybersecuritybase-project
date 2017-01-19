@@ -20,8 +20,11 @@
                 <form action="#" th:action="@{/}" method="GET">
                     <p><input type="submit" value="Back" /></p>
                 </form>
+                <p>Currently we have <span th:utext="${count}">count</span> signups!</p>
             </div>
-            <a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Image by Freepik</a>
+            
+            <p><a href='admin.html' th:href="@{/admin}">Admin login</a></p>
+            <p><a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Image by Freepik</a></p>
         </div>
     </body>
 </html>

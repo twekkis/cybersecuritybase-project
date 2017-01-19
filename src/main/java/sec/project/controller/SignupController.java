@@ -25,19 +25,50 @@ public class SignupController {
     
     @RequestMapping("*")
     public String defaultMapping() {
-        return "redirect:/";
+        return "redirect:/form";
     }
     
-    @RequestMapping("/")
-    public String mainPage(Model model) {
-        model.addAttribute("count", signupRepository.count());
-        return "index";
-    }
     @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String loadForm() {
-        session.invalidate();
+    public String loadForm(Model model) {
+        model.addAttribute("count", signupRepository.count());
+        /*session.invalidate();*/
         return  "form";
     }
+    
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String submitForm(Model model, @RequestParam String name, @RequestParam String address) {
+        
+        Signup entry = signupRepository.save(new Signup(name, address));
+        session.setAttribute("name", entry.getName());
+        session.setAttribute("address", entry.getAddress());
+        session.setAttribute("id", entry.getId());
+        session.setAttribute("state", "ADD"); 
+        
+        return "confirm";
+    }
+    
+    @RequestMapping(value = "/confirm")
+    public String submitConfirm(Model model) {
+        
+        return "done";
+    }
+    
+    @RequestMapping(value = "/cancel")
+    public String cancel() {
+        
+        if(session.getAttribute("id") != null) {
+            Signup entry = signupRepository.findOne((Long)session.getAttribute("id"));
+            if(entry != null) {
+                signupRepository.delete(entry);
+                session.setAttribute("state", "DEL");
+            }
+        }
+        
+        return "done";
+    }
+    
+    
+    /*** ADMIN methods ***/
     
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminAll(Model model) {
@@ -52,75 +83,15 @@ public class SignupController {
         model.addAttribute("signups", all);
         return  "admin";
     }
-
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    public String modify() {
-        session.invalidate();
-        return "find";
-    }
     
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String submitForm(Model model, @RequestParam String name, @RequestParam String address) {
-        
-        Signup entry = signupRepository.save(new Signup(name, address));
-        session.setAttribute("name", entry.getName());
-        session.setAttribute("address", entry.getAddress());
-        session.setAttribute("id", entry.getId());
-        session.setAttribute("state", "ADD");
-        
-        
-        return "confirm";
-    }
-    
-    @RequestMapping(value = "/cancel"/*, method = RequestMethod.GET*/)
-    public String cancel() {
-        
-        if((String)session.getAttribute("state")=="DEL")
-            session.setAttribute("state", "ADD");
-        else
-            session.setAttribute("state", "DEL");
-    
-        return "confirm";
-    }
-    
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    public String submitConfirm(Model model) {
-        
-        if((String)session.getAttribute("state")=="DEL") {
-            System.out.printf("delete %d\n", session.getAttribute("id"));
-            Signup entry = signupRepository.findOne((Long)session.getAttribute("id"));
-            signupRepository.delete(entry);
-        }
-        return "done";
-    }
-    
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public String show(Model model, @RequestParam(required = true)Long regId) {
-        
-        Signup entry = signupRepository.findOne(regId);
-        
-        session.setAttribute("state", "SHOW");
-        session.setAttribute("name", entry.getName());
-        session.setAttribute("address", entry.getAddress());
-        session.setAttribute("id", entry.getId());
-        
-        return "done";
-    }
-    
-    
-    
-    @RequestMapping(value = "/admin/show", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
     public String adminShow(Model model, @RequestParam(required = true)Long regId) {
         
         Signup entry = signupRepository.findOne(regId);
+        if(entry != null) {
+            signupRepository.delete(entry);
+        }
         
-        session.setAttribute("state", "SHOW");
-        session.setAttribute("name", entry.getName());  
-        session.setAttribute("address", entry.getAddress());
-        session.setAttribute("id", entry.getId());
-        
-        return "done";
+        return adminAll(model);
     }
-    
-
 }

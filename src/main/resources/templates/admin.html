@@ -14,8 +14,10 @@
                 <td><span th:text="${item.id}">signup</span></td>
                 <td><span th:text="${item.name}">signup</span></td>
                 <td><span th:text="${item.address}">signup</span></td>
-                <td><a href="show.html" th:href="@{/admin/show(regId=${item.id})}">Modify</a></td>
+                <td><a href="delete.html" th:href="@{/admin/delete(regId=${item.id})}">Delete</a></td>
             </tr>
         </table>	
+        
+        <br/><br/><a href="index.html" th:href="@{/}">Back to registration form</a> 
     </body>
 </html>
