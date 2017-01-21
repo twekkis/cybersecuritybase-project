@@ -9,27 +9,9 @@
         <p th:class="logo">
             #poetry.com
         </p>
-        <div th:class="main">
-
-
-            <div th:if="${session.state} == 'ADD'">               
-                <h1>Thank you!</h1>Registration confirmed
-            </div>
-            <div th:if="${session.state} == 'DEL'">           
-                <h1>See you next time!</h1>Registration cancelled
-            </div>
-            <div th:if="${session.state} == 'SHOW'">           
-                <h1>Current registration</h1>
-                <p>Id: <span th:utext="${session.id}">id</span></p>
-                <p>Name: <span th:utext="${session.name}">name</span></p>
-                <p>Address: <span th:utext="${session.address}">address</span></p>
-                <form action="#" th:action="@{/cancel}" method="GET">
-                    <input type="submit" value="Delete" />
-                </form>
-                <form action="#" th:action="@{/}" method="GET">
-                    <input type="submit" value="Cancel" />
-                </form>
-            </div>
+        <div th:class="main">         
+            <h1 th:text="${message}">Thank you!</h1> 
+            Registration <span th:text="${status}">confirmed</span>
             <br/><br/><a href="index.html" th:href="@{/}">Back to registration form</a>       
         </div>
         <a href='http://www.freepik.com/free-photo/stack-of-books-with-glasses-on-wooden-desk_902421.htm'>Image by Freepik</a>

@@ -9,21 +9,16 @@
         <p th:class="logo">
             #poetry.com
         </p>
-        <div th:class="main">
-            <div th:if="${session.state} == 'ADD'">         
-                <h1>Are you sure you want to register?</h1>
-            </div>
-            <div th:if="${session.state} == 'DEL'">           
-                <h1>Are you sure you want to delete registration?</h1>
-            </div>
-            <p>Name: <span th:utext="${session.name}">name</span></p>
-            <p>Address: <span th:utext="${session.address}">address</span></p>
+        <div th:class="main">       
+            <h1>Are you sure you want to register?</h1>
+            <p>Name: <span th:text="${session.name}">name</span></p>
+            <p>Address: <span th:text="${session.address}">address</span></p>
         
             <form action="#" th:action="@{/confirm}" method="POST">
                 <p><input type="submit" value="confirm"/></p>
             </form>
-        
-            <form action="#" th:action="@{/cancel}" method="POST">
+            
+            <form action="#" th:action="@{/cancel}" method="GET">
                 <p><input type="submit" value="cancel"/></p>
             </form>        
         </div>

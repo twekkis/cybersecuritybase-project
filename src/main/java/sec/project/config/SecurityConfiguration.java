@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,17 +15,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+    
+    /***A6-Sensitive Data Exposure***/
+    /*FIX: This application does not use HTTPS so it means that given
+    credentials are transffered in plain text. HTTPS required to 
+    encrypt the traffic. Certificate generation and installation is not
+    described here.*/
+    
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       
-        http.csrf().disable();
+        /***A8-Cross-Site Request Forgery (CSRF)***/
+        /*FIX: Do not disable csrf tokens*/
+        //http.csrf().disable();
+            
         http
             .authorizeRequests()
-                .antMatchers("/admin").authenticated()
+                /***A4-Insecure Direct Object References***/
+                /*FIX: use "/admin/**"*/
+                .antMatchers("/admin/").authenticated()
                 .and()
             .formLogin()
                 .permitAll()

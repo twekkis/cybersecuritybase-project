@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +31,11 @@ public class SignupController {
     
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String loadForm(Model model) {
+        
+        /**A2-Broken Session Management**/
+        ///*FIX:*/ session.invalidate();
+        
         model.addAttribute("count", signupRepository.count());
-        /*session.invalidate();*/
         return  "form";
     }
     
@@ -42,33 +46,38 @@ public class SignupController {
         session.setAttribute("name", entry.getName());
         session.setAttribute("address", entry.getAddress());
         session.setAttribute("id", entry.getId());
-        session.setAttribute("state", "ADD"); 
         
         return "confirm";
     }
     
     @RequestMapping(value = "/confirm")
     public String submitConfirm(Model model) {
-        
+        /**A2-Broken Session Management**/
+        ///*FIX:*/ session.invalidate();
+        model.addAttribute("message", "Thank you!");
+        model.addAttribute("status", "confirmed");
         return "done";
     }
     
     @RequestMapping(value = "/cancel")
-    public String cancel() {
+    public String cancel(Model model) {
         
         if(session.getAttribute("id") != null) {
             Signup entry = signupRepository.findOne((Long)session.getAttribute("id"));
             if(entry != null) {
                 signupRepository.delete(entry);
-                session.setAttribute("state", "DEL");
             }
         }
-        
+        /**A2-Broken Session Management**/
+        ///*FIX:*/ session.invalidate();
+        model.addAttribute("message", "See you next time!");
+        model.addAttribute("status", "cancelled");
         return "done";
     }
     
     
     /*** ADMIN methods ***/
+    
     
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminAll(Model model) {
